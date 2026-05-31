@@ -213,5 +213,30 @@ public class Project {
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
+    public Double getFinalScore() {
+    return finalScore;
+}
 
+public void setFinalScore(Double finalScore) {
+    this.finalScore = finalScore;
+}
+@Override
+public String toString() {
+    return "Project{" +
+            "projectId=" + projectId +
+            ", portfolioId=" + portfolioId +
+            ", projectName='" + projectName + '\'' +
+            ", description='" + description + '\'' +
+            ", projectType='" + projectType + '\'' +
+            ", status='" + status + '\'' +
+            ", requestedBudget=" + requestedBudget +
+            ", strategicAlignmentScore=" + strategicAlignmentScore +
+            ", roiScore=" + roiScore +
+            ", riskScore=" + riskScore +
+            ", innovationScore=" + innovationScore +
+            ", feasibilityScore=" + feasibilityScore +
+            ", finalScore=" + finalScore +
+            ", createdBy=" + createdBy +
+            '}';
+}
 }
