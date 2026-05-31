@@ -1,10 +1,23 @@
 package de.hftstuttgart.ppm;
 
-/**
- * Hello world!
- */
+import java.util.List;
+
+import de.hftstuttgart.ppm.dao.UserDAO;
+import de.hftstuttgart.ppm.model.User;
+
 public class App {
+
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+        UserDAO userDAO = new UserDAO();
+
+        List<User> users =
+                userDAO.findAllUsers();
+
+        for (User user : users) {
+
+            System.out.println(user);
+        }
     }
+    
 }
