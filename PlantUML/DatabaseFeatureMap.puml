@@ -1,0 +1,41 @@
+@startuml
+
+rectangle Projects
+
+rectangle AuditLogs
+
+rectangle Portfolios
+
+rectangle Users
+
+rectangle Roles
+
+Projects --> AuditLogs : Trigger #1\nAutomatic Audit Log
+
+Projects --> Projects : Trigger #2\nPrevent Approval\nif Score < 5
+
+Projects --> Projects : Trigger #3\nDefault DRAFT Status
+
+rectangle "Stored Procedure\napprove_project()"
+
+rectangle "Stored Procedure\nsubmit_project_for_review()"
+
+rectangle "Stored Procedure\ncalculate_portfolio_budget()"
+
+Projects --> "Stored Procedure\napprove_project()"
+
+Projects --> "Stored Procedure\nsubmit_project_for_review()"
+
+Portfolios --> "Stored Procedure\ncalculate_portfolio_budget()"
+
+Projects --> Portfolios : JOIN #1
+
+Projects --> Users : JOIN #2
+
+Users --> Roles : JOIN #3
+
+Portfolios --> Users : JOIN #4
+
+AuditLogs --> Projects : JOIN #5
+
+@enduml

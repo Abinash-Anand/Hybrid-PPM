@@ -1,0 +1,55 @@
+@startuml
+
+start
+
+:Create Project;
+
+:Enter Project Details;
+
+:Calculate Final Score;
+
+:Save Project;
+
+:Trigger #3;
+note right
+Automatically set
+status = DRAFT
+end note
+
+:Project Status = DRAFT;
+
+:Submit Project;
+
+:Stored Procedure
+submit_project_for_review();
+
+:Project Status = SUBMITTED;
+
+:Approve Project;
+
+:Stored Procedure
+approve_project();
+
+if (Final Score >= 5?) then (Yes)
+
+    :Project Status = APPROVED;
+
+    :Trigger #1;
+    note right
+    Create Audit Log
+    end note
+
+else (No)
+
+    :Trigger #2;
+    note right
+    Reject Approval
+    end note
+
+endif
+
+:View Audit Logs;
+
+stop
+
+@enduml
