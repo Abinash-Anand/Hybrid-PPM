@@ -11,244 +11,267 @@ import de.hftstuttgart.ppm.database.DBConnectionManager;
 import de.hftstuttgart.ppm.model.Project;
 
 public class ProjectDAO {
-     public List<Project> findAllProjects() {
+        public List<Project> findAllProjects() {
 
-    List<Project> projects = new ArrayList<>();
+                List<Project> projects = new ArrayList<>();
 
-    String sql = "SELECT * FROM projects";
+                String sql = "SELECT * FROM projects";
 
-    try (
-            Connection connection =
-                    DBConnectionManager.getConnection();
+                try (
+                                Connection connection = DBConnectionManager.getConnection();
 
-            PreparedStatement statement =
-                    connection.prepareStatement(sql);
+                                PreparedStatement statement = connection.prepareStatement(sql);
 
-            ResultSet resultSet =
-                    statement.executeQuery()
-    ) {
+                                ResultSet resultSet = statement.executeQuery()) {
 
-        while (resultSet.next()) {
+                        while (resultSet.next()) {
 
-            Project project = new Project();
+                                Project project = new Project();
 
-            project.setProjectId(
-                    resultSet.getLong("project_id"));
+                                project.setProjectId(
+                                                resultSet.getLong("project_id"));
 
-            project.setPortfolioId(
-                    resultSet.getLong("portfolio_id"));
+                                project.setPortfolioId(
+                                                resultSet.getLong("portfolio_id"));
 
-            project.setProjectName(
-                    resultSet.getString("project_name"));
+                                project.setProjectName(
+                                                resultSet.getString("project_name"));
 
-            project.setDescription(
-                    resultSet.getString("description"));
+                                project.setDescription(
+                                                resultSet.getString("description"));
 
-            project.setProjectType(
-                    resultSet.getString("project_type"));
+                                project.setProjectType(
+                                                resultSet.getString("project_type"));
 
-            project.setStatus(
-                    resultSet.getString("status"));
+                                project.setStatus(
+                                                resultSet.getString("status"));
 
-            project.setRequestedBudget(
-                    resultSet.getBigDecimal("requested_budget"));
+                                project.setRequestedBudget(
+                                                resultSet.getBigDecimal("requested_budget"));
 
-            project.setStrategicAlignmentScore(
-                    resultSet.getInt("strategic_alignment_score"));
+                                project.setStrategicAlignmentScore(
+                                                resultSet.getInt("strategic_alignment_score"));
 
-            project.setRoiScore(
-                    resultSet.getInt("roi_score"));
+                                project.setRoiScore(
+                                                resultSet.getInt("roi_score"));
 
-            project.setRiskScore(
-                    resultSet.getInt("risk_score"));
+                                project.setRiskScore(
+                                                resultSet.getInt("risk_score"));
 
-            project.setInnovationScore(
-                    resultSet.getInt("innovation_score"));
+                                project.setInnovationScore(
+                                                resultSet.getInt("innovation_score"));
 
-            project.setFeasibilityScore(
-                    resultSet.getInt("feasibility_score"));
+                                project.setFeasibilityScore(
+                                                resultSet.getInt("feasibility_score"));
 
-            project.setFinalScore(
-                    resultSet.getDouble("final_score"));
+                                project.setFinalScore(
+                                                resultSet.getDouble("final_score"));
 
-            project.setCreatedBy(
-                    resultSet.getLong("created_by"));
+                                project.setCreatedBy(
+                                                resultSet.getLong("created_by"));
 
-            projects.add(project);
+                                projects.add(project);
+                        }
+
+                } catch (SQLException exception) {
+
+                        exception.printStackTrace();
+                }
+
+                return projects;
         }
 
-    } catch (SQLException exception) {
+        public Project findProjectById(Long projectId) {
 
-        exception.printStackTrace();
-    }
+                String sql = "SELECT * FROM projects WHERE project_id = ?";
 
-    return projects;
-}
+                try (
+                                Connection connection = DBConnectionManager.getConnection();
 
-public Project findProjectById(Long projectId) {
+                                PreparedStatement statement = connection.prepareStatement(sql)) {
 
-    String sql =
-            "SELECT * FROM projects WHERE project_id = ?";
+                        statement.setLong(1, projectId);
 
-    try (
-            Connection connection =
-                    DBConnectionManager.getConnection();
+                        ResultSet resultSet = statement.executeQuery();
 
-            PreparedStatement statement =
-                    connection.prepareStatement(sql)
-    ) {
+                        if (resultSet.next()) {
 
-        statement.setLong(1, projectId);
+                                Project project = new Project();
 
-        ResultSet resultSet =
-                statement.executeQuery();
+                                project.setProjectId(
+                                                resultSet.getLong("project_id"));
 
-        if (resultSet.next()) {
+                                project.setPortfolioId(
+                                                resultSet.getLong("portfolio_id"));
 
-            Project project = new Project();
+                                project.setProjectName(
+                                                resultSet.getString("project_name"));
 
-            project.setProjectId(
-                    resultSet.getLong("project_id"));
+                                project.setDescription(
+                                                resultSet.getString("description"));
 
-            project.setPortfolioId(
-                    resultSet.getLong("portfolio_id"));
+                                project.setProjectType(
+                                                resultSet.getString("project_type"));
 
-            project.setProjectName(
-                    resultSet.getString("project_name"));
+                                project.setStatus(
+                                                resultSet.getString("status"));
 
-            project.setDescription(
-                    resultSet.getString("description"));
+                                project.setRequestedBudget(
+                                                resultSet.getBigDecimal("requested_budget"));
 
-            project.setProjectType(
-                    resultSet.getString("project_type"));
+                                project.setStrategicAlignmentScore(
+                                                resultSet.getInt("strategic_alignment_score"));
 
-            project.setStatus(
-                    resultSet.getString("status"));
+                                project.setRoiScore(
+                                                resultSet.getInt("roi_score"));
 
-            project.setRequestedBudget(
-                    resultSet.getBigDecimal("requested_budget"));
+                                project.setRiskScore(
+                                                resultSet.getInt("risk_score"));
 
-            project.setStrategicAlignmentScore(
-                    resultSet.getInt("strategic_alignment_score"));
+                                project.setInnovationScore(
+                                                resultSet.getInt("innovation_score"));
 
-            project.setRoiScore(
-                    resultSet.getInt("roi_score"));
+                                project.setFeasibilityScore(
+                                                resultSet.getInt("feasibility_score"));
 
-            project.setRiskScore(
-                    resultSet.getInt("risk_score"));
+                                project.setFinalScore(
+                                                resultSet.getDouble("final_score"));
 
-            project.setInnovationScore(
-                    resultSet.getInt("innovation_score"));
+                                project.setCreatedBy(
+                                                resultSet.getLong("created_by"));
 
-            project.setFeasibilityScore(
-                    resultSet.getInt("feasibility_score"));
+                                return project;
+                        }
 
-            project.setFinalScore(
-                    resultSet.getDouble("final_score"));
+                } catch (SQLException exception) {
 
-            project.setCreatedBy(
-                    resultSet.getLong("created_by"));
+                        exception.printStackTrace();
+                }
 
-            return project;
+                return null;
         }
 
-    } catch (SQLException exception) {
+        public void createProject(Project project) {
 
-        exception.printStackTrace();
-    }
+                String sql = "INSERT INTO projects (" +
+                                "portfolio_id, " +
+                                "project_name, " +
+                                "description, " +
+                                "project_type, " +
+                                "status, " +
+                                "requested_budget, " +
+                                "strategic_alignment_score, " +
+                                "roi_score, " +
+                                "risk_score, " +
+                                "innovation_score, " +
+                                "feasibility_score, " +
+                                "final_score, " +
+                                "created_by" +
+                                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    return null;
-}
-    
+                try (
+                                Connection connection = DBConnectionManager.getConnection();
 
-public void createProject(Project project) {
+                                PreparedStatement statement = connection.prepareStatement(sql)) {
 
-    String sql =
-            "INSERT INTO projects (" +
-            "portfolio_id, " +
-            "project_name, " +
-            "description, " +
-            "project_type, " +
-            "status, " +
-            "requested_budget, " +
-            "strategic_alignment_score, " +
-            "roi_score, " +
-            "risk_score, " +
-            "innovation_score, " +
-            "feasibility_score, " +
-            "final_score, " +
-            "created_by" +
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        statement.setLong(
+                                        1,
+                                        project.getPortfolioId());
 
-    try (
-            Connection connection =
-                    DBConnectionManager.getConnection();
+                        statement.setString(
+                                        2,
+                                        project.getProjectName());
 
-            PreparedStatement statement =
-                    connection.prepareStatement(sql)
-    ) {
+                        statement.setString(
+                                        3,
+                                        project.getDescription());
 
-        statement.setLong(
-                1,
-                project.getPortfolioId());
+                        statement.setString(
+                                        4,
+                                        project.getProjectType());
 
-        statement.setString(
-                2,
-                project.getProjectName());
+                        statement.setString(
+                                        5,
+                                        project.getStatus());
 
-        statement.setString(
-                3,
-                project.getDescription());
+                        statement.setBigDecimal(
+                                        6,
+                                        project.getRequestedBudget());
 
-        statement.setString(
-                4,
-                project.getProjectType());
+                        statement.setInt(
+                                        7,
+                                        project.getStrategicAlignmentScore());
 
-        statement.setString(
-                5,
-                project.getStatus());
+                        statement.setInt(
+                                        8,
+                                        project.getRoiScore());
 
-        statement.setBigDecimal(
-                6,
-                project.getRequestedBudget());
+                        statement.setInt(
+                                        9,
+                                        project.getRiskScore());
 
-        statement.setInt(
-                7,
-                project.getStrategicAlignmentScore());
+                        statement.setInt(
+                                        10,
+                                        project.getInnovationScore());
 
-        statement.setInt(
-                8,
-                project.getRoiScore());
+                        statement.setInt(
+                                        11,
+                                        project.getFeasibilityScore());
 
-        statement.setInt(
-                9,
-                project.getRiskScore());
+                        statement.setDouble(
+                                        12,
+                                        project.getFinalScore());
 
-        statement.setInt(
-                10,
-                project.getInnovationScore());
+                        statement.setLong(
+                                        13,
+                                        project.getCreatedBy());
 
-        statement.setInt(
-                11,
-                project.getFeasibilityScore());
+                        int rowsAffected = statement.executeUpdate();
 
-        statement.setDouble(
-                12,
-                project.getFinalScore());
+                        System.out.println(
+                                        rowsAffected + " project inserted.");
 
-        statement.setLong(
-                13,
-                project.getCreatedBy());
+                } catch (SQLException exception) {
 
-        int rowsAffected =
-                statement.executeUpdate();
+                        exception.printStackTrace();
+                }
 
-        System.out.println(
-                rowsAffected + " project inserted.");
+        }
 
-    } catch (SQLException exception) {
+        public boolean updateProjectStatus(
+                        Long projectId,
+                        String status) {
 
-        exception.printStackTrace();
-    }
-}
+                String sql = "UPDATE projects " +
+                                "SET status = ? " +
+                                "WHERE project_id = ?";
+
+                try (
+
+                                Connection connection = DBConnectionManager.getConnection();
+
+                                PreparedStatement statement = connection.prepareStatement(sql)
+
+                ) {
+
+                        statement.setString(
+                                        1,
+                                        status);
+
+                        statement.setLong(
+                                        2,
+                                        projectId);
+
+                        int rowsAffected = statement.executeUpdate();
+
+                        return rowsAffected > 0;
+
+                } catch (SQLException exception) {
+
+                        exception.printStackTrace();
+
+                        return false;
+                }
+                
+        }
 }

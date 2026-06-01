@@ -14,6 +14,7 @@ public class AuditLog {
 
     private String description;
 
+    private String createdAt;
     /**
      * @return Long return the auditId
      */
@@ -98,4 +99,31 @@ public class AuditLog {
         this.description = description;
     }
 
+
+    /**
+     * @return String return the createdAt
+     */
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+    @Override
+public String toString() {
+
+    return "AuditLog{" +
+            "auditId=" + auditId +
+            ", userId=" + userId +
+            ", actionType='" + actionType + '\'' +
+            ", entityType='" + entityType + '\'' +
+            ", entityId=" + entityId +
+            ", description='" + description + '\'' +
+            ", createdAt='" + createdAt + '\'' +
+            '}';
+}
 }
