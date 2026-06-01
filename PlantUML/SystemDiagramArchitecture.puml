@@ -1,0 +1,46 @@
+@startuml
+
+package "Presentation Layer" {
+  [MainFrame]
+  [CreateProjectFrame]
+  [ApproveProjectFrame]
+  [AuditLogFrame]
+}
+
+package "Business Layer" {
+  [ProjectScoringService]
+  [AuditLogService]
+}
+
+package "Data Access Layer" {
+  [ProjectDAO]
+  [PortfolioDAO]
+  [AuditLogDAO]
+}
+
+database "PostgreSQL" {
+  [roles]
+  [users]
+  [portfolios]
+  [projects]
+  [audit_logs]
+  [Triggers]
+  [Stored Procedures]
+}
+
+MainFrame --> CreateProjectFrame
+MainFrame --> ApproveProjectFrame
+MainFrame --> AuditLogFrame
+
+CreateProjectFrame --> ProjectScoringService
+CreateProjectFrame --> ProjectDAO
+
+ApproveProjectFrame --> ProjectDAO
+
+AuditLogFrame --> AuditLogDAO
+
+ProjectDAO --> PostgreSQL
+PortfolioDAO --> PostgreSQL
+AuditLogDAO --> PostgreSQL
+
+@enduml

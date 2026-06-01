@@ -1,0 +1,69 @@
+@startuml
+
+entity roles {
+
+* role_id : bigint <<PK>>
+  --
+  role_name : varchar
+  }
+
+entity users {
+
+* user_id : bigint <<PK>>
+  --
+  first_name : varchar
+  last_name : varchar
+  email : varchar
+  password_hash : varchar
+  role_id : bigint <<FK>>
+  }
+
+entity portfolios {
+
+* portfolio_id : bigint <<PK>>
+  --
+  portfolio_name : varchar
+  description : text
+  budget : numeric
+  status : varchar
+  created_by : bigint <<FK>>
+  }
+
+entity projects {
+
+* project_id : bigint <<PK>>
+  --
+  portfolio_id : bigint <<FK>>
+  project_name : varchar
+  description : text
+  project_type : varchar
+  status : varchar
+  requested_budget : numeric
+  strategic_alignment_score : integer
+  roi_score : integer
+  risk_score : integer
+  innovation_score : integer
+  feasibility_score : integer
+  final_score : numeric
+  created_by : bigint <<FK>>
+  }
+
+entity audit_logs {
+
+* audit_id : bigint <<PK>>
+  --
+  user_id : bigint <<FK>>
+  action_type : varchar
+  entity_type : varchar
+  entity_id : bigint
+  description : text
+  created_at : timestamp
+  }
+
+roles ||--o{ users
+users ||--o{ portfolios
+users ||--o{ projects
+portfolios ||--o{ projects
+projects ||--o{ audit_logs
+
+@enduml

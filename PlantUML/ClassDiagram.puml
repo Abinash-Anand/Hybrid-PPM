@@ -1,0 +1,59 @@
+@startuml
+
+class Role {
+
+* roleId : Long
+* roleName : String
+  }
+
+class User {
+
+* userId : Long
+* firstName : String
+* lastName : String
+* email : String
+* passwordHash : String
+  }
+
+class Portfolio {
+
+* portfolioId : Long
+* portfolioName : String
+* description : String
+* budget : BigDecimal
+* status : String
+  }
+
+class Project {
+
+* projectId : Long
+* projectName : String
+* description : String
+* projectType : String
+* status : String
+* requestedBudget : BigDecimal
+* strategicAlignmentScore : Integer
+* roiScore : Integer
+* riskScore : Integer
+* innovationScore : Integer
+* feasibilityScore : Integer
+* finalScore : Double
+  }
+
+class AuditLog {
+
+* auditId : Long
+* actionType : String
+* entityType : String
+* entityId : Long
+* description : String
+* createdAt : Timestamp
+  }
+
+Role "1" -- "many" User
+User "1" -- "many" Portfolio
+User "1" -- "many" Project
+Portfolio "1" -- "many" Project
+Project "1" -- "many" AuditLog
+
+@enduml

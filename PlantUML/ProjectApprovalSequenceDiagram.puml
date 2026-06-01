@@ -1,0 +1,32 @@
+@startuml
+
+actor "Project Manager" as PM
+participant "Swing UI" as UI
+participant "ProjectDAO" as DAO
+database "PostgreSQL" as DB
+
+PM -> UI : Create Project
+UI -> DAO : createProject()
+DAO -> DB : INSERT project
+
+DB -> DB : Trigger #3\nSet status = DRAFT
+
+PM -> UI : Submit Project
+UI -> DAO : CALL submit_project_for_review()
+DAO -> DB : Procedure Execution
+
+DB -> DB : DRAFT -> SUBMITTED
+
+PM -> UI : Approve Project
+UI -> DAO : CALL approve_project()
+DAO -> DB : Procedure Execution
+
+DB -> DB : Trigger #2\nValidate score >= 5
+
+DB -> DB : Trigger #1\nCreate audit log
+
+DB --> DAO : Success
+DAO --> UI : Approved
+UI --> PM : Project Approved
+
+@enduml

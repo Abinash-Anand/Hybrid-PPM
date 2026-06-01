@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+
+actor "Administrator" as Admin
+actor "Portfolio Manager" as PM
+actor "Project Manager" as PJM
+
+rectangle "Hybrid Project Portfolio Management System" {
+
+usecase "Create Project" as UC1
+usecase "Calculate Project Score" as UC2
+usecase "Submit Project" as UC3
+usecase "Approve Project" as UC4
+usecase "View Audit Logs" as UC5
+usecase "Calculate Portfolio Budget" as UC6
+}
+
+PJM --> UC1
+PJM --> UC2
+PJM --> UC3
+
+PM --> UC4
+PM --> UC6
+
+Admin --> UC5
+
+@enduml
