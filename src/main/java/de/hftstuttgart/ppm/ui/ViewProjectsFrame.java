@@ -16,15 +16,20 @@ public class ViewProjectsFrame extends JFrame {
 
         setTitle("View Projects");
 
-        setSize(800, 500);
+        setSize(1000, 600);
 
         setLocationRelativeTo(null);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         String[] columns = {
                 "Project ID",
                 "Project Name",
-                "Score",
-                "Status"
+                "Project Type",
+                "Budget",
+                "Final Score",
+                "Status",
+                "Created By"
         };
 
         DefaultTableModel tableModel =
@@ -32,6 +37,11 @@ public class ViewProjectsFrame extends JFrame {
 
         JTable table =
                 new JTable(tableModel);
+
+        table.setAutoResizeMode(
+                JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        table.setRowHeight(25);
 
         ProjectDAO projectDAO =
                 new ProjectDAO();
@@ -47,9 +57,15 @@ public class ViewProjectsFrame extends JFrame {
 
                     project.getProjectName(),
 
+                    project.getProjectType(),
+
+                    project.getRequestedBudget(),
+
                     project.getFinalScore(),
 
-                    project.getStatus()
+                    project.getStatus(),
+
+                    project.getCreatedBy()
             };
 
             tableModel.addRow(row);

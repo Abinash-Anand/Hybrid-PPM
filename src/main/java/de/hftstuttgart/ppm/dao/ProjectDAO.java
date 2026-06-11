@@ -274,4 +274,38 @@ public class ProjectDAO {
                 }
                 
         }
+        public boolean submitProject(Long projectId) {
+
+    String sql =
+            "UPDATE projects " +
+            "SET status = 'SUBMITTED' " +
+            "WHERE project_id = ? " +
+            "AND status = 'DRAFT'";
+
+    try (
+
+            Connection connection =
+                    DBConnectionManager.getConnection();
+
+            PreparedStatement statement =
+                    connection.prepareStatement(sql)
+
+    ) {
+
+        statement.setLong(
+                1,
+                projectId);
+
+        int rowsAffected =
+                statement.executeUpdate();
+
+        return rowsAffected > 0;
+
+    } catch (SQLException exception) {
+
+        exception.printStackTrace();
+
+        return false;
+    }
+}
 }
